@@ -1,3 +1,4 @@
 nonebot
 bs4
 "nonebot[scheduler]"
+ujson
