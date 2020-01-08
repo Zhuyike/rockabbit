@@ -22,13 +22,13 @@ async def _():
     for group in bot.config.report_time_list:
         fans_update = int(follower) - check_last_hour["count"]
         message = f'现在{now.hour}点整啦！\n此时小妹拥有了{follower}个粉丝\n' + \
-                  f'较上一个小时{"涨" if fans_update >= 0 else "掉"}粉{abs(fans_update)}'
+                  f'较上一个小时{"涨" if fans_update >= 0 else "掉"}粉{int(abs(fans_update))}'
         if now.hour == 0:
             last_day = now - datetime.timedelta(days=1)
             filter_ = {'t': last_day.strftime("%Y-%m-%d %H")}
             check_last_day = await loop.run_in_executor(None, mongo_db.fans_count.find_one, filter_)
             fans_update = int(follower) - check_last_day["count"]
-            message += f'\n较昨天相比{"涨" if fans_update >= 0 else "掉"}粉{abs(fans_update)}'
+            message += f'\n较昨天相比{"涨" if fans_update >= 0 else "掉"}粉{int(abs(fans_update))}'
         try:
             await bot.send_group_msg(group_id=group,
                                      message=message)
