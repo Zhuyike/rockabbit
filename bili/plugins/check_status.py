@@ -23,7 +23,8 @@ async def _():
                 try:
                     await bot.send_group_msg(group_id=group,
                                              message="有新的歌姬相关视频了\n" +
-                                                     "UP主：{}，标题：{}\n".format(archive['owner']['name'], archive['title']) +
+                                                     "UP主：{}，".format(archive['owner']['name']) +
+                                                     "标题：{}\n".format(archive['title']) +
                                                      "https://www.bilibili.com/video/{}，快去抢热评".format(av_id))
                     insert_data = {'av': av_id, 'read': True}
                     await loop.run_in_executor(None, mongo_db.bili_av.insert, insert_data)
