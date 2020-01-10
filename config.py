@@ -12,6 +12,7 @@ mongo_user = 'keientist_admin'
 mongo_pwd = 'keientist_pwd'
 check_status_list = [806609845, 872841902]
 report_time_list = [806609845, 872841902]
+black_list = [14843979, ]
 DEBUG = False
 
 

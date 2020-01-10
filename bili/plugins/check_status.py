@@ -18,6 +18,8 @@ async def _():
                                                                    't=1&single_column=0')
     data_revdol = json.loads(search_revdol.text)
     for archive in data['data']['news']['archives']:
+        if int(archive['owner']['mid']) in bot.config.black_list:
+            continue
         av_id = 'av' + str(archive['aid'])
         filter_ = {'av': av_id}
         check_data = await loop.run_in_executor(None, mongo_db.bili_av.find_one, filter_)
@@ -36,6 +38,8 @@ async def _():
                 except CQHttpError:
                     pass
     for result in data_revdol['data']['result']:
+        if int(result['mid']) in bot.config.black_list:
+            continue
         av_id = 'av' + str(result['aid'])
         filter_ = {'av': av_id}
         check_data = await loop.run_in_executor(None, mongo_db.bili_av.find_one, filter_)
