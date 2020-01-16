@@ -24,4 +24,4 @@ async def _():
         check_last_day = await u.db_executor(mongo_db.fans_count.find_one, filter_)
         fans_update = int(follower) - check_last_day["count"]
         message += f'\n较昨天相比{"涨" if fans_update >= 0 else "掉"}粉{int(abs(fans_update))}'
-    await u.batch_send_msg(bot.config.report_time_list, message, bot)
+    await u.batch_send_msg(bot.config.report_time_list, message)

@@ -20,7 +20,7 @@ async def _():
             pass
         else:
             msg = get_msg(archive['owner']['name'], archive['title'], av_id, bot)
-            await u.batch_send_msg(bot.config.check_status_list, msg, bot)
+            await u.batch_send_msg(bot.config.check_status_list, msg)
             insert_data = {'av': av_id, 'read': True}
             await u.db_executor(mongo_db.bili_av.insert, insert_data)
     for result in data_revdol['data']['result']:
@@ -33,7 +33,7 @@ async def _():
             pass
         else:
             msg = get_msg(result['author'], result['title'], av_id, bot)
-            await u.batch_send_msg(bot.config.check_status_list, msg, bot)
+            await u.batch_send_msg(bot.config.check_status_list, msg)
             insert_data = {'av': av_id, 'read': True}
             await u.db_executor(mongo_db.bili_av.insert, insert_data)
 

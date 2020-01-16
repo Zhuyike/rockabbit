@@ -2,6 +2,7 @@ aiocqhttp
 requests
 nonebot
 bs4
+lxml
 "nonebot[scheduler]"
 ujson
 msgpack
