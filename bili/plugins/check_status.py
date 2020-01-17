@@ -19,7 +19,7 @@ async def _():
         if check_data:
             pass
         else:
-            msg = get_msg(archive['owner']['name'], archive['title'], av_id, bot)
+            msg = get_msg(archive['owner']['mid'], archive['owner']['name'], archive['title'], av_id, bot)
             await u.batch_send_msg(bot.config.check_status_list, msg)
             insert_data = {'av': av_id, 'read': True}
             await u.db_executor(mongo_db.bili_av.insert, insert_data)
@@ -32,14 +32,14 @@ async def _():
         if check_data:
             pass
         else:
-            msg = get_msg(result['author'], result['title'], av_id, bot)
+            msg = get_msg(result['mid'], result['author'], result['title'], av_id, bot)
             await u.batch_send_msg(bot.config.check_status_list, msg)
             insert_data = {'av': av_id, 'read': True}
             await u.db_executor(mongo_db.bili_av.insert, insert_data)
 
 
-def get_msg(author, title, av_id, bot):
-    if author in bot.config.white_list:
+def get_msg(mid, author, title, av_id, bot):
+    if int(mid) in bot.config.white_list:
         msg = "啊啊啊啊啊，这这这这是小妹的新视频，啊啊啊啊啊\nUP主：{}，标题：{}\nhttps://www.bilibili.com/video/{}\n大家、大家" \
               "、一定一定一定转发转发转发，然后是点赞投币收藏三连\n现在b站的转发进热门的比重是最大最大最大的!"\
             .format(author, title, av_id)
