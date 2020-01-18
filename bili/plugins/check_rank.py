@@ -1,16 +1,15 @@
-from nonebot import CommandSession
 import utils as u
 import nonebot
 import hyper
 import json
-import datetime
 
 
 @nonebot.scheduler.scheduled_job('cron', second='1', minute='*/5')
-async def _(session: CommandSession):
+async def _():
     bot = nonebot.get_bot()
     if not bot.config.event_903:
         return
+    await bot.send(context={'user_id': '791949127'}, message='在{}榜上被人超过了'.format(bot.config.idol_dict[int(1)]))
     mongo_db = bot.config.mongo_db['keientist']
     filter_ = {'type': "903_rank"}
     rank = await u.db_executor(mongo_db.cookie_secret.find_one, filter_)
@@ -23,7 +22,8 @@ async def _(session: CommandSession):
             for user in data['data']:
                 if user['uid'] == bot.config.my_uid:
                     if user['rank'] > rank[i]:
-                        await session.send('在{}榜上被人超过了'.format(bot.config.idol_dict[int(i)]))
+                        await bot.send(context={'user_id': '791949127'},
+                                       message='在{}榜上被人超过了'.format(bot.config.idol_dict[int(i)]))
                     rank[i] = user['rank']
     await u.db_executor(mongo_db.cookie_secret.save, rank)
     print("success: ".format(rank))
