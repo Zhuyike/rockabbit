@@ -35,4 +35,4 @@ async def _():
         else:
             print('{}不打算监控'.format(bot.config.idol_dict[int(i)]))
     await u.db_executor(mongo_db.cookie_secret.save, rank)
-    print("success: ".format(rank))
+    print("success: {}".format(rank))
