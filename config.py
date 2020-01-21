@@ -19,6 +19,7 @@ check_fans_qq_list = [791949127, 2893023449, 275535369, 940864516, 514864750, 43
 new_number_list = [827725907, 983826586]
 black_list = [14843979, 282481375]
 white_list = [364225566]
+zhuanfa = [364225566]
 DEBUG = False
 event_903 = True
 my_uid = 31189
