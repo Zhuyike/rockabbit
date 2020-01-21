@@ -1,6 +1,7 @@
 import nonebot
 import datetime
 import utils as u
+import random
 
 
 @nonebot.scheduler.scheduled_job('cron', hour='*')
@@ -14,8 +15,16 @@ async def _():
     await u.db_executor(mongo_db.fans_count.insert, insert_data)
     last_hour = now - datetime.timedelta(hours=1)
     filter_ = {'t': last_hour.strftime("%Y-%m-%d %H")}
-    check_last_hour = await u.db_executor(mongo_db.fans_count.find_one, filter_)
-    fans_update = int(follower) - check_last_hour["count"]
+    hours = 0
+    while True:
+        hours += 1
+        check_last_hour = await u.db_executor(mongo_db.fans_count.find_one, filter_)
+        if check_last_hour:
+            break
+        else:
+            last_hour -= datetime.timedelta(hours=1)
+            filter_ = {'t': last_hour.strftime("%Y-%m-%d %H")}
+    fans_update = (int(follower) - check_last_hour["count"]) / hours
     message = f'现在{now.hour}点整啦！\n此时小妹拥有了{follower}个粉丝\n' + \
               f'较上一个小时{"涨" if fans_update >= 0 else "掉"}粉{int(abs(fans_update))}'
     if now.hour == 0:
@@ -24,4 +33,5 @@ async def _():
         check_last_day = await u.db_executor(mongo_db.fans_count.find_one, filter_)
         fans_update = int(follower) - check_last_day["count"]
         message += f'\n较昨天相比{"涨" if fans_update >= 0 else "掉"}粉{int(abs(fans_update))}'
-    await u.batch_send_msg(bot.config.report_time_list, message)
+    if random.randint(1, 3) == 1 or now.hour == 0:
+        await u.batch_send_msg(bot.config.report_time_list, message)
