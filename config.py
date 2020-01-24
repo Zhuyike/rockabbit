@@ -39,22 +39,22 @@ def keientist_db_instance():
     return dbs
 
 
-def get_wechat_auth():
-    headers = {
-        'content-type': 'application/x-www-form-urlencoded',
-        'x-timezone-offset': '8',
-        'accept': '*/*',
-        'authorization': 'Miinno Tx5ZBthwvPdvQH9YPzRzkvNuvB-CZ7Cc_1556905329',
-        'brand': 'iPhone',
-        'accept-language': 'zh-cn',
-        'accept-encoding': 'br, gzip, deflate',
-        'platform': '1',
-        'user-agent': 'Mozilla/5.0(iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.5(0x17000523) NetType/WIFI Language/zh_CN',
-        'referer': 'https://servicewechat.com/wx0a48c468391428fd/61/page-frame.html',
-        'model': 'iPhone 8 Plus (GSM+CDMA)<iPhone10,2>'
-    }
-    return headers
+# def get_wechat_auth():
+#     headers = {
+#         'content-type': 'application/x-www-form-urlencoded',
+#         'x-timezone-offset': '8',
+#         'accept': '*/*',
+#         'authorization': '',
+#         'brand': 'iPhone',
+#         'accept-language': 'zh-cn',
+#         'accept-encoding': 'br, gzip, deflate',
+#         'platform': '1',
+#         'user-agent': 'Mozilla/5.0(iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.5(0x17000523) NetType/WIFI Language/zh_CN',
+#         'referer': 'https://servicewechat.com/wx0a48c468391428fd/61/page-frame.html',
+#         'model': 'iPhone 8 Plus (GSM+CDMA)<iPhone10,2>'
+#     }
+#     return headers
 
 
 mongo_db = keientist_db_instance()
-wechat_auth = get_wechat_auth()
+# wechat_auth = get_wechat_auth()
