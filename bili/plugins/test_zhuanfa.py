@@ -94,7 +94,7 @@ async def _(session: CommandSession):
     if len(rank_list) > 10:
         rank_list = rank_list[:10]
     msg = '当前转发数排名前{}用户\n'.format(len(rank_list))
-    msg += '\n'.join(['QQ: {}, 转发数: {}'.format(rank['qq'], rank['count']) for rank in rank_list])
+    msg += '\n'.join(['QQ: {}, \n转发数: {}'.format(rank['qq'], rank['count']) for rank in rank_list])
     msg += '\n每个视频每天只会记录一次转发哦~~各位再接再厉'
     await session.send(msg)
 
