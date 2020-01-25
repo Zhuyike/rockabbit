@@ -82,13 +82,13 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     bot = nonebot.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
-    rank_data = list(await u.db_executor(mongo_db.zhuanfa_list.find, {}))
+    rank_data = list(await u.db_executor(mongo_db.zhuanfa_user.find, {}))
     rank_list = [{'qq': rank['qq'], 'count': sum([rank['data'][key]['count'] for key in rank['data'].keys()])}
                  for rank in rank_data]
     rank_list.sort(key=lambda x: x['count'], reverse=True)
     if len(rank_list) > 10:
         rank_list = rank_list[:10]
-    msg = '当前转发数排名前{}用户'.format(len(rank_list))
+    msg = '当前转发数排名前{}用户\n'.format(len(rank_list))
     msg += '\n'.join(['QQ: {}, 转发数: {}'.format(rank['qq'], rank['count']) for rank in rank_list])
     msg += '\n每个视频每天只会记录一次转发哦~~各位再接再厉'
     await session.send(msg)
