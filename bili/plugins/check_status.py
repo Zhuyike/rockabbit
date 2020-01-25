@@ -1,5 +1,6 @@
 import nonebot
 import utils as u
+import time
 
 
 @nonebot.scheduler.scheduled_job('cron', second='*/30')
@@ -41,7 +42,7 @@ async def _():
 async def get_msg(mid, author, title, av_id, bot):
     if int(mid) in bot.config.white_list:
         mongo_db = bot.config.mongo_db['keientist']
-        insert_data = {'av': av_id, 'title': title, 'author': author}
+        insert_data = {'av': av_id, 'title': title, 'author': author, 'ctime': round(time.time())}
         await u.db_executor(mongo_db.zhuanfa_list.insert, insert_data)
         msg = "啊啊啊啊啊，这这这这是小妹的新视频，快看啊快看啊\nUP主：{}，标题：{}\nhttps://www.bilibili.com/video/{}\n大家、大家" \
               "、一定一定一定转发转发转发，然后是点赞投币收藏三连\n现在b站的转发进热门的比重是最大最大最大的!"\

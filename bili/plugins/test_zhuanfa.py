@@ -32,6 +32,11 @@ async def send_feedback(session, title, content, bot, type=1):
         filter_data = {'title': re.compile(title[:-4])}
         check_data = await u.db_executor(mongo_db.zhuanfa_list.find_one, filter_data)
         if check_data:
+            date = datetime.datetime.fromtimestamp(check_data['ctime'])
+            days = datetime.timedelta(days=7)
+            if date + days < datetime.datetime.now():
+                await session.send('感谢转发，内容：{}\n不过，这个视频超出7天时间不会被记录啦'.format(title))
+                return
             success = True
             today = datetime.datetime.now().strftime('%Y-%m-%d')
             filter_user = {'qq': session.ctx['user_id']}
@@ -91,4 +96,29 @@ async def _(session: CommandSession):
     msg = '当前转发数排名前{}用户\n'.format(len(rank_list))
     msg += '\n'.join(['QQ: {}, 转发数: {}'.format(rank['qq'], rank['count']) for rank in rank_list])
     msg += '\n每个视频每天只会记录一次转发哦~~各位再接再厉'
+    await session.send(msg)
+
+
+@on_command('detail', only_to_me=False, shell_like=True)
+async def weather(session: CommandSession):
+    bot = nonebot.get_bot()
+    mongo_db = bot.config.mongo_db['keientist']
+    if not u.check_1st_control(session):
+        return
+    argv = session.args['argv']
+    try:
+        qq = int(argv[0])
+    except ValueError:
+        await session.send('请输入正确的QQ号')
+        return
+    filter_ = {'qq': qq}
+    qq_data = await u.db_executor(mongo_db.zhuanfa_user.find_one, filter_)
+    if qq_data:
+        av_dict = {av['av']: av['title'] for av in list(await u.db_executor(mongo_db.zhuanfa_list.find, {}))}
+        msg = '转发明细:\n'
+        msg += '\n'.join(['标题: {}, 转发次数: {}'.format(av_dict[key], qq_data['data'][key]['count'])
+                          for key in qq_data['data'].keys()])
+        msg += '本机器人替小妹谢谢你的支持'
+    else:
+        msg = '要么是QQ号输错了，要么是目前还木有转发记录'
     await session.send(msg)
