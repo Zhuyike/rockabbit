@@ -94,7 +94,7 @@ async def _(session: CommandSession):
     if len(rank_list) > 10:
         rank_list = rank_list[:10]
     msg = '当前转发数排名前{}用户\n'.format(len(rank_list))
-    msg += '\n'.join(['QQ: {}, \n转发数: {}'.format(rank['qq'], rank['count']) for rank in rank_list])
+    msg += '\n'.join(['QQ: {}, 转发数: {}'.format(rank['qq'], rank['count']) for rank in rank_list])
     msg += '\n每个视频每天只会记录一次转发哦~~各位再接再厉'
     await session.send(msg)
 
@@ -116,7 +116,7 @@ async def weather(session: CommandSession):
     if qq_data:
         av_dict = {av['av']: av['title'] for av in list(await u.db_executor(mongo_db.zhuanfa_list.find, {}))}
         msg = '转发明细:\n'
-        msg += '\n'.join(['标题: {}, 转发次数: {}'.format(av_dict[key], qq_data['data'][key]['count'])
+        msg += '\n'.join(['标题: {}\n转发次数: {}'.format(av_dict[key], qq_data['data'][key]['count'])
                           for key in qq_data['data'].keys()])
         msg += '本机器人替小妹谢谢你的支持'
     else:
