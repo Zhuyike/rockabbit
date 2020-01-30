@@ -8,6 +8,8 @@ import utils as u
 @on_command('zhuanfazhuanfazhuanfa', only_to_me=False)
 async def _(session: CommandSession):
     bot = nonebot.get_bot()
+    if not u.check_zhuanfa(session):
+        return
     content = session.ctx['message'][0]['data']['content']
     try:
         av = content.split('www.bilibili.com/video/')[1].split('/?p=')[0]
@@ -73,6 +75,8 @@ def check_content(session, content, type):
 
 @on_command('zhuanfazhuanfazhuanfa_2', only_to_me=False)
 async def _(session: CommandSession):
+    if not u.check_zhuanfa(session):
+        return
     bot = nonebot.get_bot()
     content = session.ctx['message'][0]['data']['content']
     try:
@@ -85,6 +89,8 @@ async def _(session: CommandSession):
 
 @on_command('rank', only_to_me=False)
 async def _(session: CommandSession):
+    if not u.check_zhuanfa(session):
+        return
     bot = nonebot.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
     rank_data = list(await u.db_executor(mongo_db.zhuanfa_user.find, {}))
@@ -100,7 +106,9 @@ async def _(session: CommandSession):
 
 
 @on_command('detail', only_to_me=False, shell_like=True)
-async def weather(session: CommandSession):
+async def _(session: CommandSession):
+    if not u.check_zhuanfa(session):
+        return
     bot = nonebot.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
     if not u.check_1st_control(session):
@@ -118,7 +126,7 @@ async def weather(session: CommandSession):
         msg = '转发明细:\n'
         msg += '\n'.join(['标题: {}, 转发次数: {}'.format(av_dict[key], qq_data['data'][key]['count'])
                           for key in qq_data['data'].keys()])
-        msg += '本机器人替小妹谢谢你的支持'
+        msg += '\n本机器人替小妹谢谢你的支持'
     else:
         msg = '要么是QQ号输错了，要么是目前还木有转发记录'
     await session.send(msg)

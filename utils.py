@@ -32,6 +32,10 @@ async def batch_send_msg(groups, msg):
             pass
 
 
+def check_zhuanfa(session):
+    return session.ctx.get('group_id') in bot.config.zhuanfa_list
+
+
 def check_1st_control(session):
     if session.ctx['group_id'] not in bot.config.check_fans_qun_list and \
             session.ctx['user_id'] not in bot.config.check_fans_qq_list:
