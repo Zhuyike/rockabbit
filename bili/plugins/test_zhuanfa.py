@@ -3,6 +3,7 @@ import re
 import nonebot
 import datetime
 import utils as u
+import HTMLParser
 
 
 @on_command('zhuanfazhuanfazhuanfa', only_to_me=False)
@@ -26,12 +27,25 @@ async def _(session: CommandSession):
             print(content)
 
 
+def get_re_str(str_):
+    str__ = ''
+    for each in str_:
+        if each in ['$', '(', ')', '*', '+', '.', '[', ']', '?', '\\', '^', '{', '}', '|']:
+            str__ += '\\' + each
+        else:
+            str__ += each
+    return str__
+
+
 async def send_feedback(session, title, content, bot, type=1):
     if check_content(session, content, type):
         await session.send('盗别人转发的biss')
     else:
         mongo_db = bot.config.mongo_db['keientist']
-        filter_data = {'title': re.compile(title[:-4])}
+        data_parser = HTMLParser.HTMLParser()
+        title = data_parser.unescape(title)
+        re_str = get_re_str(title[:-4])
+        filter_data = {'title': re.compile(re_str)}
         check_data = await u.db_executor(mongo_db.zhuanfa_list.find_one, filter_data)
         if check_data:
             date = datetime.datetime.fromtimestamp(check_data['ctime'])
@@ -48,14 +62,15 @@ async def send_feedback(session, title, content, bot, type=1):
                 await u.db_executor(mongo_db.zhuanfa_user.insert, check_user)
             else:
                 av_data = check_user['data'].get(check_data['av'])
+                count = 2 if check_data['av'] in bot.config.zhuanfa_double else 1
                 if av_data:
                     if av_data['uptime'] == today:
                         success = False
                     else:
                         av_data['uptime'] = today
-                        av_data['count'] += 1
+                        av_data['count'] += count
                 else:
-                    check_user['data'][check_data['av']] = {'count': 1, 'uptime': today}
+                    check_user['data'][check_data['av']] = {'count': count, 'uptime': today}
                 await u.db_executor(mongo_db.zhuanfa_user.save, check_user)
             if success:
                 await session.send('感谢转发，内容：{}'.format(title))
