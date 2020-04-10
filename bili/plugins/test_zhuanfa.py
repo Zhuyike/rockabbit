@@ -3,7 +3,7 @@ import re
 import nonebot
 import datetime
 import utils as u
-import HTMLParser
+import html
 
 
 @on_command('zhuanfazhuanfazhuanfa', only_to_me=False)
@@ -42,8 +42,7 @@ async def send_feedback(session, title, content, bot, type=1):
         await session.send('[CQ:at,qq={}]盗别人转发的biss'.format(session.ctx['user_id']))
     else:
         mongo_db = bot.config.mongo_db['keientist']
-        data_parser = HTMLParser.HTMLParser()
-        title = data_parser.unescape(title)
+        title = html.unescape(title)
         re_str = get_re_str(title[:-4])
         filter_data = {'title': re.compile(re_str)}
         check_data = await u.db_executor(mongo_db.zhuanfa_list.find_one, filter_data)
