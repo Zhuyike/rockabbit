@@ -1,5 +1,4 @@
 from nonebot import on_command, CommandSession, permission as perm
-import nonebot
 import utils as u
 import datetime
 

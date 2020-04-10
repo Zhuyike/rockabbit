@@ -187,3 +187,11 @@ async def _(session: CommandSession):
     await u.db_executor(mongo_db.zhuanfa_user.remove, {})
     msg = '本月转发数据已初始化'
     await session.send(msg)
+
+
+@on_command('转发群', only_to_me=False)
+async def _(session: CommandSession):
+    await session.send('转发群用于战姬众转发歌姬视频，蛋仔可完成转发应援小任务获取【贝化值】。此外还会【记录转发数】，依据数量排名每月'
+                       '有小奖品抽送哦！群号：228415488\n[CQ:image,file=DEFD7FC6846CC8C3D2508BCF4E9CB795.jpg,url=https://g'
+                       'chat.qpic.cn/gchatpic_new/791949127/827725907-3174956380-DEFD7FC6846CC8C3D2508BCF4E9CB795/0?ter'
+                       'm=2]')
