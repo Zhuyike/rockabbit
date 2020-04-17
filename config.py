@@ -1,5 +1,6 @@
 from nonebot.default_config import *
 from pymongo import MongoClient
+import oss2
 
 SUPERUSERS = [791949127, ]
 COMMAND_START = ['', '/', '!', '／', '！', ]
@@ -24,6 +25,7 @@ white_list = [364225566]
 zhuanfa = [364225566]
 zhuanfa_list = [228415488, 827725907, 872841902, 806609845, 1065224474]
 zhuanfa_double = ['av89216498', 'av89225040', 'av89219859', 'av92643783', 'av94360241', 'av94481794']
+score_admin = []
 DEBUG = False
 event_903 = True
 my_uid = 31189
@@ -34,6 +36,11 @@ idol_dict = {1: '卡缇娅',
              5: '玉藻',
              6: '墨汐'}
 
+oss_Address = 'http://oss-cn-beijing.aliyuncs.com'
+oss_Address_Download = 'https://keientist.oss-cn-beijing.aliyuncs.com'
+oss_Bucket = 'keientist'
+oss_Prefix_antifan = 'antifan/'
+
 
 def keientist_db_instance():
     mongo_client = MongoClient(host=mongo_host, port=mongo_port)
@@ -42,6 +49,10 @@ def keientist_db_instance():
     dbs['keientist'] = mongo_client['keientist']
     return dbs
 
+
+# def oss2_instance():
+#     auth = oss2.Auth('', '')
+#     bucket = oss2.Bucket(auth, 'http://oss-cn-beijing.aliyuncs.com', 'keientist')
 
 # def get_wechat_auth():
 #     headers = {

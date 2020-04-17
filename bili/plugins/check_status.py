@@ -3,7 +3,7 @@ import utils as u
 import time
 
 
-@nonebot.scheduler.scheduled_job('cron', second='*/30')
+@nonebot.scheduler.scheduled_job('cron', second='5', minute='*')
 async def _():
     bot = nonebot.get_bot()
     mongo_db = bot.config.mongo_db['keientist']

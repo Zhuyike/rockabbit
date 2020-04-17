@@ -8,3 +8,4 @@ lxml
 ujson
 msgpack
 hyper
+oss2
