@@ -27,7 +27,7 @@ zhuanfa_list = [228415488, 827725907, 872841902, 806609845, 1065224474]
 zhuanfa_double = ['av89216498', 'av89225040', 'av89219859', 'av92643783', 'av94360241', 'av94481794']
 score_admin = []
 DEBUG = False
-event_903 = True
+event_981 = True
 my_uid = 31189
 idol_dict = {1: '卡缇娅',
              2: '罗兹',
@@ -35,6 +35,12 @@ idol_dict = {1: '卡缇娅',
              4: '伊莎贝拉',
              5: '玉藻',
              6: '墨汐'}
+target_dict = {1: 'x',
+               2: 30,
+               3: 10,
+               4: 1,
+               5: 10,
+               6: 'x'}
 
 oss_Address = 'http://oss-cn-beijing.aliyuncs.com'
 oss_Address_Download = 'https://keientist.oss-cn-beijing.aliyuncs.com'
@@ -54,22 +60,22 @@ def keientist_db_instance():
 #     auth = oss2.Auth('', '')
 #     bucket = oss2.Bucket(auth, 'http://oss-cn-beijing.aliyuncs.com', 'keientist')
 
-# def get_wechat_auth():
-#     headers = {
-#         'content-type': 'application/x-www-form-urlencoded',
-#         'x-timezone-offset': '8',
-#         'accept': '*/*',
-#         'authorization': '',
-#         'brand': 'iPhone',
-#         'accept-language': 'zh-cn',
-#         'accept-encoding': 'br, gzip, deflate',
-#         'platform': '1',
-#         'user-agent': 'Mozilla/5.0(iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.5(0x17000523) NetType/WIFI Language/zh_CN',
-#         'referer': 'https://servicewechat.com/wx0a48c468391428fd/61/page-frame.html',
-#         'model': 'iPhone 8 Plus (GSM+CDMA)<iPhone10,2>'
-#     }
-#     return headers
+def get_wechat_auth():
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'x-timezone-offset': '8',
+        'accept': '*/*',
+        'authorization': '',
+        'brand': 'iPhone',
+        'accept-language': 'zh-cn',
+        'accept-encoding': 'br, gzip, deflate',
+        'platform': '1',
+        'user-agent': 'Mozilla/5.0(iPhone; CPU iPhone OS 12_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.5(0x17000523) NetType/WIFI Language/zh_CN',
+        'referer': 'https://servicewechat.com/wx0a48c468391428fd/61/page-frame.html',
+        'model': 'iPhone 8 Plus (GSM+CDMA)<iPhone10,2>'
+    }
+    return headers
 
 
 mongo_db = keientist_db_instance()
-# wechat_auth = get_wechat_auth()
+wechat_auth = get_wechat_auth()

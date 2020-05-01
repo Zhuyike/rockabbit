@@ -43,9 +43,10 @@ async def send_feedback(session, title, content, bot, type=1):
     else:
         mongo_db = bot.config.mongo_db['keientist']
         title = html.unescape(title)
-        re_str = get_re_str(title[:-4])
+        re_str = title[:-4]
         if len(re_str) > 30:
             re_str = re_str[:30]
+        re_str = get_re_str(re_str)
         filter_data = {'title': re.compile(re_str)}
         check_data = await u.db_executor(mongo_db.zhuanfa_list.find_one, filter_data)
         if check_data:
