@@ -7,3 +7,4 @@ ujson==2.0.3
 msgpack==1.0.0
 hyper==0.7.0
 oss2==2.10.0
+APScheduler==3.6.3
