@@ -1,12 +1,12 @@
 import utils as u
-import nonebot
+import nonebot_local
 import hyper
 import json
 
 
-# @nonebot.scheduler.scheduled_job('cron', second='*/3')
+# @nonebot_local.scheduler.scheduled_job('cron', second='*/3')
 # async def _():
-#     bot = nonebot.get_bot()
+#     bot = nonebot_local.get_bot()
 #     if not bot.config.event_981:
 #         return
 #     target_dict = bot.config.target_dict

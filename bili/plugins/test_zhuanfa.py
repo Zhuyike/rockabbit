@@ -1,6 +1,6 @@
-from nonebot import on_command, CommandSession
+from nonebot_local import on_command, CommandSession
 import re
-import nonebot
+import nonebot_local
 import datetime
 import utils as u
 import html
@@ -8,7 +8,7 @@ import html
 
 @on_command('zhuanfazhuanfazhuanfa', only_to_me=False)
 async def _(session: CommandSession):
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     if not u.check_zhuanfa(session):
         return
     content = session.ctx['message'][0]['data']['content']
@@ -97,7 +97,7 @@ def check_content(session, content, type):
 async def _(session: CommandSession):
     if not u.check_zhuanfa(session):
         return
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     content = session.ctx['message'][0]['data']['content']
     try:
         title = content.split('"title":"')[1].split('"')[0]
@@ -111,7 +111,7 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     if not u.check_zhuanfa(session):
         return
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     content = str(session.ctx['message'])
     try:
         title = content.split('text=')[1].split('…,url=')[0]
@@ -125,7 +125,7 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     if not u.check_zhuanfa(session):
         return
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
     rank_data = list(await u.db_executor(mongo_db.zhuanfa_user.find, {}))
     rank_list = [{'qq': rank['qq'], 'count': sum([rank['data'][key]['count'] for key in rank['data'].keys()])}
@@ -143,7 +143,7 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     if not u.check_zhuanfa(session):
         return
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
     if not u.check_1st_control(session):
         return
@@ -168,7 +168,7 @@ async def _(session: CommandSession):
 
 @on_command('settlement', only_to_me=True)
 async def _(session: CommandSession):
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     if session.ctx['user_id'] not in bot.config.settle_list:
         return
     mongo_db = bot.config.mongo_db['keientist']
@@ -182,7 +182,7 @@ async def _(session: CommandSession):
 
 @on_command('finish', only_to_me=True)
 async def _(session: CommandSession):
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     if session.ctx['user_id'] not in bot.config.settle_list:
         return
     mongo_db = bot.config.mongo_db['keientist']
@@ -201,7 +201,7 @@ async def _(session: CommandSession):
 
 # @on_command('转发抽奖', only_to_me=True)
 # async def _(session: CommandSession):
-#     bot = nonebot.get_bot()
+#     bot = nonebot_local.get_bot()
 #     if session.ctx['user_id'] not in bot.config.settle_list:
 #         return
 #     await session.send('种子随机数为: 474\n中奖用户为: 260074725\n种子随机数为: 143\n中奖用户为: 759906494\n种子随机数为: 1053'

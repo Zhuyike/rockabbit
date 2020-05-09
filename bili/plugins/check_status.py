@@ -1,11 +1,11 @@
-import nonebot
+import nonebot_local
 import utils as u
 import time
 
 
-@nonebot.scheduler.scheduled_job('cron', second='5', minute='*')
+@nonebot_local.scheduler.scheduled_job('cron', second='5', minute='*')
 async def _():
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
     data = await u.web_get('https://api.bilibili.com/x/tag/detail?pn=1&ps=20&tag_id=8402119')
     data_revdol = await u.web_get('https://api.bilibili.com/x/web-interface/search/type?page=1&order=pubdate&keyword=战'

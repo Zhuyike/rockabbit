@@ -1,5 +1,5 @@
-from nonebot import on_command, CommandSession
-import nonebot
+from nonebot_local import on_command, CommandSession
+import nonebot_local
 import utils as u
 import time
 import datetime
@@ -12,7 +12,7 @@ class Code(object):
 
 @on_command('swiss', aliases=('瑞士轮', ), only_to_me=False, shell_like=True)
 async def _(session: CommandSession):
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     argv = session.args['argv']
     if len(argv) == 0:
         await session.send('缺少参数')

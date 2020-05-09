@@ -1,4 +1,4 @@
-from nonebot import on_command, CommandSession
+from nonebot_local import on_command, CommandSession
 import utils as u
 import datetime
 

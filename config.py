@@ -1,4 +1,4 @@
-from nonebot.default_config import *
+from nonebot_local.default_config import *
 from pymongo import MongoClient
 import oss2
 

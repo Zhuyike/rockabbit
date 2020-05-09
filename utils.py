@@ -1,12 +1,12 @@
 import requests
 import asyncio
 import json
-import nonebot
+import nonebot_local
 from bs4 import BeautifulSoup
 from aiocqhttp.exceptions import Error as CQHttpError
 
 
-bot = nonebot.get_bot()
+bot = nonebot_local.get_bot()
 
 
 async def web_get(url):

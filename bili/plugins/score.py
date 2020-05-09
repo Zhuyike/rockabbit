@@ -1,6 +1,6 @@
-from nonebot import on_command, CommandSession
+from nonebot_local import on_command, CommandSession
 import re
-import nonebot
+import nonebot_local
 import datetime
 import utils as u
 
@@ -12,7 +12,7 @@ async def _(session: CommandSession):
     msgs = session.ctx['message']
     for msg in msgs:
         if msg['type'] == 'image':
-            mongo_db = nonebot.get_bot().config.mongo_db['keientist']
+            mongo_db = nonebot_local.get_bot().config.mongo_db['keientist']
             now = datetime.datetime.now()
             insert_data = {'t': now.strftime("%Y-%m-%d %H:%M:%S"), 'file': msg['data']['file'],
                            'url': msg['data']['url'], 'qq': session.ctx['user_id']}
@@ -24,7 +24,7 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     if not u.check_1st_control(session):
         return
-    mongo_db = nonebot.get_bot().config.mongo_db['keientist']
+    mongo_db = nonebot_local.get_bot().config.mongo_db['keientist']
     data = list(await u.db_executor(mongo_db.img_status.find, {}))
     cal = dict()
     url = dict()

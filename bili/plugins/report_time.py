@@ -1,12 +1,12 @@
-import nonebot
+import nonebot_local
 import datetime
 import utils as u
 import random
 
 
-@nonebot.scheduler.scheduled_job('cron', hour='*')
+@nonebot_local.scheduler.scheduled_job('cron', hour='*')
 async def _():
-    bot = nonebot.get_bot()
+    bot = nonebot_local.get_bot()
     mongo_db = bot.config.mongo_db['keientist']
     data = await u.web_get('https://api.bilibili.com/x/relation/stat?vmid=364225566')
     follower = str(data['data']['follower'])
