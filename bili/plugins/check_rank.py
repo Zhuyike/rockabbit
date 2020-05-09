@@ -4,21 +4,21 @@ import hyper
 import json
 
 
-# @nonebot.scheduler.scheduled_job('cron', second='1', minute='*/5')
+# @nonebot.scheduler.scheduled_job('cron', second='*/3')
 # async def _():
 #     bot = nonebot.get_bot()
-#     if not bot.config.event_903:
+#     if not bot.config.event_981:
 #         return
+#     target_dict = bot.config.target_dict
 #     mongo_db = bot.config.mongo_db['keientist']
-#     filter_ = {'type': "903_rank"}
+#     filter_ = {'type': "981_rank"}
 #     rank = await u.db_executor(mongo_db.cookie_secret.find_one, filter_)
-#     print(rank)
 #     c = hyper.HTTP20Connection('starmicro.happyelements.cn', port=443, secure=True, ssl_context=None)
 #     for i in "123456":
 #         if rank[i] != "x":
 #             while True:
 #                 try:
-#                     c.request('GET', '/v2/new-year/supporter-rank?event_id=903&idol_id={}'.format(i),
+#                     c.request('GET', '/v2/birthday/rank?event_id=981&idol_id={}'.format(i),
 #                               headers=bot.config.wechat_auth)
 #                     break
 #                 except AttributeError:
@@ -27,8 +27,11 @@ import json
 #             for user in data['data']:
 #                 if user['uid'] == bot.config.my_uid:
 #                     if user['rank'] > rank[i]:
+#                         tar = data['data'][target_dict[int(i)] - 1]
 #                         await bot.send(context={'user_id': '791949127'},
-#                                        message='在{}榜上被人超过了'.format(bot.config.idol_dict[int(i)]))
+#                                        message='在{}榜上被人超过了, 距离目标{}名{}票'.format(
+#                                            bot.config.idol_dict[int(i)], target_dict[int(i)],
+#                                            tar['point'] - user['point']))
 #                     else:
 #                         print('{}没有被超'.format(bot.config.idol_dict[int(i)]))
 #                     rank[i] = user['rank']
