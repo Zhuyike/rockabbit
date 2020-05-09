@@ -197,3 +197,13 @@ async def _(session: CommandSession):
                        '有小奖品抽送哦！群号：228415488\n[CQ:image,file=DEFD7FC6846CC8C3D2508BCF4E9CB795.jpg,url=https://g'
                        'chat.qpic.cn/gchatpic_new/791949127/827725907-3174956380-DEFD7FC6846CC8C3D2508BCF4E9CB795/0?ter'
                        'm=2]')
+
+
+# @on_command('转发抽奖', only_to_me=True)
+# async def _(session: CommandSession):
+#     bot = nonebot.get_bot()
+#     if session.ctx['user_id'] not in bot.config.settle_list:
+#         return
+#     await session.send('种子随机数为: 474\n中奖用户为: 260074725\n种子随机数为: 143\n中奖用户为: 759906494\n种子随机数为: 1053'
+#                        '\n中奖用户为: 874122811\n种子随机数为: 2466\n中奖用户为: 527418826\n种子随机数为: 3664\n中奖用户为: 35'
+#                        '09374368')
