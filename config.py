@@ -4,7 +4,7 @@ import oss2
 
 SUPERUSERS = [791949127, ]
 COMMAND_START = ['', '/', '!', '／', '！', ]
-HOST = '127.0.0.1'
+HOST = '0.0.0.0'
 PORT = 32409
 t_keys = ['战斗吧歌姬', ]
 mongo_host = '123.57.95.42'
@@ -54,7 +54,6 @@ def keientist_db_instance():
     dbs = dict()
     dbs['keientist'] = mongo_client['keientist']
     return dbs
-
 
 # def oss2_instance():
 #     auth = oss2.Auth('', '')

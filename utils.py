@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 from aiocqhttp.exceptions import Error as CQHttpError
 
 
-loop = asyncio.get_event_loop()
 bot = nonebot.get_bot()
 
 
 async def web_get(url):
+    loop = asyncio.get_running_loop()
     text = await loop.run_in_executor(None, requests.get, url)
     if '</html>' in text.text:
         soup = BeautifulSoup(text.text, 'lxml')
@@ -21,6 +21,7 @@ async def web_get(url):
 
 
 async def db_executor(method, data):
+    loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, method, data)
 
 
