@@ -13,20 +13,19 @@ class Tail(object):
         self.file_length = None
 
     def follow(self, n=10):
-        try:
-            with open(self.file_name) as f:
-                self._file = f
-                self._file.seek(0, 2)
-                self.file_length = self._file.tell()
-                self.showLastLine(n)
-                while True:
-                    line = self._file.readline()
-                    if line:
-                        self.callback(line)
-                    time.sleep(1)
-        except Exception as e:
-            print('打开文件失败，囧，看看文件是不是不存在，或者权限有问题')
-            print(e)
+        with open(self.file_name) as f:
+            self._file = f
+            self._file.seek(0, 2)
+            self.file_length = self._file.tell()
+            self.showLastLine(n)
+            while True:
+                line = self._file.readline()
+                if line:
+                    self.callback(line)
+                time.sleep(1)
+        # except Exception as e:
+        #     print('打开文件失败，囧，看看文件是不是不存在，或者权限有问题')
+        #     print(e)
 
     def showLastLine(self, n):
         len_line = 100
