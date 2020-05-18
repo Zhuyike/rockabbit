@@ -48,7 +48,6 @@ class Tail(object):
 
 
 def _callback(line):
-    print(1, line)
     try:
         data = json.loads(line)
     except ValueError:
