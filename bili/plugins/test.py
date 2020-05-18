@@ -1,4 +1,5 @@
 from nonebot_local import on_command, CommandSession, permission as perm
+import nonebot_local
 import utils as u
 import datetime
 
@@ -46,3 +47,8 @@ async def _(session: CommandSession):
     await session.send('引流最严重的几次就像鸭鸭的cyberangel，本体播放12万，加上被引流吸血吸掉的5万，就是17万，但要考虑到b站播放越高'
                        '曝光也越多，这个视频起码能上20万，20万播放的视频能涨多少粉？所以需要大家抵制高仿')
 
+
+@on_command('_version', only_to_me=False)
+async def _(session: CommandSession):
+    bot = nonebot_local.get_bot()
+    await session.send('{}\n{}'.format(bot.config.VERSION, bot.config.AUTHOR))
