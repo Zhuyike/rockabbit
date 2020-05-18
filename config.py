@@ -4,7 +4,7 @@ import oss2
 
 
 VERSION = "1.01 at.2020-05-18 18:37"
-AUTHOR = "QQ: 791949127"
+AUTHOR = "QQ791949127"
 
 SUPERUSERS = [791949127, ]
 COMMAND_START = ['', '/', '!', '／', '！', ]
