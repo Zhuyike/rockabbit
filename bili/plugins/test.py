@@ -51,4 +51,4 @@ async def _(session: CommandSession):
 @on_command('_version', only_to_me=False)
 async def _(session: CommandSession):
     bot = nonebot_local.get_bot()
-    await session.send('{}\n{}'.format(bot.config.VERSION, bot.config.AUTHOR))
+    await session.send('Version: {}\nAuthor: {}'.format(bot.config.VERSION, bot.config.AUTHOR))
