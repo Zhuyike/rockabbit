@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import oss2
 
 
-VERSION = "1.01 at.2020-05-18 18:37"
+VERSION = "1.02 at.2020-05-18 22:09"
 AUTHOR = "QQ791949127"
 
 SUPERUSERS = [791949127, ]
@@ -39,12 +39,12 @@ idol_dict = {1: '卡缇娅',
              4: '伊莎贝拉',
              5: '玉藻',
              6: '墨汐'}
-target_dict = {1: 'x',
+target_dict = {1: 30,
                2: 30,
-               3: 10,
-               4: 1,
-               5: 10,
-               6: 'x'}
+               3: 30,
+               4: 30,
+               5: 30,
+               6: 30}
 
 oss_Address = 'http://oss-cn-beijing.aliyuncs.com'
 oss_Address_Download = 'https://keientist.oss-cn-beijing.aliyuncs.com'
