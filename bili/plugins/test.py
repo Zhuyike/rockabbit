@@ -50,3 +50,8 @@ async def _(session: CommandSession):
 async def _(session: CommandSession):
     bot = nonebot_local.get_bot()
     await session.send('Version: {}\nAuthor: {}'.format(bot.config.VERSION, bot.config.AUTHOR))
+
+
+@on_command('try_error', only_to_me=False)
+async def _(session: CommandSession):
+    await session.send('Error: {}'.format(1/0))
