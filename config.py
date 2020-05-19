@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import oss2
 
 
-VERSION = "1.02 at.2020-05-18 22:09"
+VERSION = "1.03 at.2020-05-19 10:16"
 AUTHOR = "QQ791949127"
 
 SUPERUSERS = [791949127, ]
