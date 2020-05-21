@@ -27,10 +27,10 @@ class Tail(object):
             self.file_length = self._file.tell()
             self.showLastLine(n)
             while True:
-                line = self._file.readline()
+                line = str(self._file.readline())
                 while line:
                     self.callback(line)
-                    line = self._file.readline()
+                    line = str(self._file.readline())
                 time.sleep(1)
 
     def showLastLine(self, n):
@@ -39,7 +39,7 @@ class Tail(object):
         while True:
             if read_len > self.file_length:
                 self._file.seek(0)
-                last_lines = self._file.read().split('\n')[-n:]
+                last_lines = str(self._file.read()).split('\n')[-n:]
                 break
             self._file.seek(-read_len, 2)
             last_words = self._file.read(read_len)
@@ -63,7 +63,7 @@ class Tail(object):
         if ' nonebot] ERROR: ' in log:
             ctx = log
             while True:
-                line = self._file.readline()
+                line = str(self._file.readline())
                 if line:
                     data = json.loads(line)
                     log = data['log']
