@@ -21,16 +21,16 @@ class Tail(object):
         self.file_length = None
 
     def follow(self, n=10):
-        with open(self.file_name, 'rb') as f:
+        with open(self.file_name) as f:
             self._file = f
             self._file.seek(0, 2)
             self.file_length = self._file.tell()
             self.showLastLine(n)
             while True:
-                line = str(self._file.readline())
+                line = self._file.readline()
                 while line:
                     self.callback(line)
-                    line = str(self._file.readline())
+                    line = self._file.readline()
                 time.sleep(1)
 
     def showLastLine(self, n):
@@ -39,11 +39,10 @@ class Tail(object):
         while True:
             if read_len > self.file_length:
                 self._file.seek(0)
-                last_lines = str(self._file.read()).split('\n')[-n:]
+                last_lines = self._file.read().split('\n')[-n:]
                 break
             self._file.seek(-read_len, 2)
             last_words = self._file.read(read_len)
-            last_words = str(last_words)
             count = last_words.count('\n')
             if count >= n:
                 last_lines = last_words.split('\n')[-n:]
@@ -63,7 +62,7 @@ class Tail(object):
         if ' nonebot] ERROR: ' in log:
             ctx = log
             while True:
-                line = str(self._file.readline())
+                line = self._file.readline()
                 if line:
                     data = json.loads(line)
                     log = data['log']
