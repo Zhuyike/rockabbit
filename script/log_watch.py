@@ -72,7 +72,8 @@ class Tail(object):
                     break
             Mail().mail(ctx)
             try:
-                requests.get('127.0.0.1:9999/report?ctx={}'.format(ctx))
+                r = requests.get('127.0.0.1:9999/report?ctx={}'.format(ctx))
+                print(r.text)
             except Exception:
                 pass
         return 0
