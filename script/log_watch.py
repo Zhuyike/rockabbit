@@ -71,7 +71,10 @@ class Tail(object):
                 else:
                     break
             Mail().mail(ctx)
-            requests.get('127.0.0.1:9999/report?ctx={}'.format(ctx))
+            try:
+                requests.get('127.0.0.1:9999/report?ctx={}'.format(ctx))
+            except Exception:
+                pass
         return 0
 
 

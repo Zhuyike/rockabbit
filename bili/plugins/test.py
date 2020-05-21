@@ -19,7 +19,7 @@ import time
 #     await session.send('截止到{}，粉丝数为{}'.format(now, follower))
 
 
-@on_command('test_teat', only_to_me=False, permission=perm.SUPERUSER)
+@on_command('开启api服务', only_to_me=False, permission=perm.SUPERUSER)
 async def _(session: CommandSession):
     class MainHandler(tornado.web.RequestHandler):
         async def get(self):
@@ -30,7 +30,7 @@ async def _(session: CommandSession):
     ])
     await session.send('start')
     application.listen(9999)
-    tornado.ioloop.IOLoop.instance().start()
+    # tornado.ioloop.IOLoop.instance().start()
     while True:
         print("web server available")
         time.sleep(300)
