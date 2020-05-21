@@ -1,5 +1,9 @@
-from config import keientist_db_instance
+from pymongo import MongoClient
 import requests
+mongo_host = '123.57.95.42'
+mongo_port = 27017
+mongo_user = 'keientist_admin'
+mongo_pwd = 'keientist_pwd'
 
 
 class Main(object):
@@ -39,6 +43,14 @@ class Main(object):
                 with open("output/{}{}".format(img_['cal'], houzui), "wb") as code:
                     code.write(r.content)
                 r.close()
+
+
+def keientist_db_instance():
+    mongo_client = MongoClient(host=mongo_host, port=mongo_port)
+    mongo_client.keientist.authenticate(mongo_user, mongo_pwd)
+    dbs = dict()
+    dbs['keientist'] = mongo_client['keientist']
+    return dbs
 
 
 if __name__ == '__main__':

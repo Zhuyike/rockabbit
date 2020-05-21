@@ -4,7 +4,13 @@ import sys
 import time
 import json
 import smtplib
+import requests
+import configparser
 from email.mime.text import MIMEText
+
+
+conf = configparser.ConfigParser()
+conf.read('../server.conf')
 
 
 class Tail(object):
@@ -59,18 +65,22 @@ class Tail(object):
                 line = self._file.readline()
                 if line:
                     data = json.loads(line)
+                    log = data['log']
+                    sys.stdout.write(log)
+                    ctx += log
                 else:
                     break
             Mail().mail(ctx)
+            requests.get('127.0.0.1:9999/report?ctx={}'.format(ctx))
         return 0
 
 
 class Mail(object):
     def __init__(self):
-        self.msg_from = 'xxxxxxxxx@qq.com'  # 发送方邮箱
-        self.passwd = 'abcdefghigklmnop'  # 填入发送方邮箱的授权码
-        self.msg_to = 'xxxxx@foxmail.com'  # 收件人邮箱
-        self.subject = "python邮件测试"  # 主题
+        self.msg_from = conf.get("mail", "mail")
+        self.passwd = conf.get("mail", "passwd")
+        self.msg_to = conf.get("mail", "mail")
+        self.subject = "qq-bot错误告警"
 
     def mail(self, content):
         msg = MIMEText(content)

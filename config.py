@@ -1,9 +1,12 @@
 from nonebot_local.default_config import *
 from pymongo import MongoClient
+import configparser
 import oss2
 
 
-VERSION = "1.03 at.2020-05-19 10:16"
+conf = configparser.ConfigParser()
+conf.read('server.conf')
+VERSION = "1.04 at.2020-05-21 16:01"
 AUTHOR = "QQ791949127"
 
 SUPERUSERS = [791949127, ]
@@ -11,10 +14,10 @@ COMMAND_START = ['', '/', '!', '／', '！', ]
 HOST = '0.0.0.0'
 PORT = 32409
 t_keys = ['战斗吧歌姬', ]
-mongo_host = '123.57.95.42'
-mongo_port = 27017
-mongo_user = 'keientist_admin'
-mongo_pwd = 'keientist_pwd'
+mongo_host = conf.get("mongo", "mongo_host")
+mongo_port = int(conf.get("mongo", "mongo_port"))
+mongo_user = conf.get("mongo", "mongo_user")
+mongo_pwd = conf.get("mongo", "mongo_pwd")
 check_status_list = [806609845, 872841902, 827725907, 1065224474]
 report_time_list = [806609845, 872841902]
 check_fans_qun_list = [806609845, 872841902]
@@ -46,10 +49,10 @@ target_dict = {1: 30,
                5: 30,
                6: 30}
 
-oss_Address = 'http://oss-cn-beijing.aliyuncs.com'
-oss_Address_Download = 'https://keientist.oss-cn-beijing.aliyuncs.com'
-oss_Bucket = 'keientist'
-oss_Prefix_antifan = 'antifan/'
+oss_Address = conf.get("oss", "oss_Address")
+oss_Address_Download = conf.get("oss", "oss_Address_Download")
+oss_Bucket = conf.get("oss", "oss_Bucket")
+oss_Prefix_antifan = conf.get("oss", "oss_Prefix_antifan")
 
 
 def keientist_db_instance():
@@ -63,12 +66,13 @@ def keientist_db_instance():
 #     auth = oss2.Auth('', '')
 #     bucket = oss2.Bucket(auth, 'http://oss-cn-beijing.aliyuncs.com', 'keientist')
 
+
 def get_wechat_auth():
     headers = {
         'content-type': 'application/x-www-form-urlencoded',
         'x-timezone-offset': '8',
         'accept': '*/*',
-        'authorization': '',
+        'authorization': conf.get("wechat", "auth"),
         'brand': 'iPhone',
         'accept-language': 'zh-cn',
         'accept-encoding': 'br, gzip, deflate',

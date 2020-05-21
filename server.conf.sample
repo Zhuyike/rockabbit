@@ -1,0 +1,20 @@
+[mongo]
+mongo_host = 123.57.95.42
+mongo_port = 27017
+mongo_user = keientist_admin
+mongo_pwd = keientist_pwd
+
+[oss]
+oss_Address = http://oss-cn-beijing.aliyuncs.com
+oss_Address_Download = https://keientist.oss-cn-beijing.aliyuncs.com
+oss_Bucket = keientist
+oss_Prefix_antifan = antifan/
+oss_auth =
+oss_secret =
+
+[wechat]
+auth =
+
+[mail]
+mail = zhuyike499@qq.com
+passwd =

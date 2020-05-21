@@ -5,6 +5,8 @@ import nonebot_local
 import utils as u
 import datetime
 import tornado.web
+import tornado.ioloop
+import time
 
 
 # @on_command('test', only_to_me=False, permission=perm.SUPERUSER)
@@ -21,14 +23,17 @@ import tornado.web
 async def _(session: CommandSession):
     class MainHandler(tornado.web.RequestHandler):
         async def get(self):
-            await session.send('我接收到了报警：\n{}'.format(self.request.arguments.get('ctx')))
-            self.write("朕知道了")
+            await session.send('接收到了报警：\n{}'.format(self.request.arguments.get('ctx')))
+            self.write("朕知道了\n{}".format(self.request.arguments.get('ctx')))
     application = tornado.web.Application([
         (r"/report", MainHandler),
     ])
     await session.send('start')
-    application.listen(8888)
-#     tornado.ioloop.IOLoop.instance().start()
+    application.listen(9999)
+    tornado.ioloop.IOLoop.instance().start()
+    while True:
+        print("web server available")
+        time.sleep(300)
 
 
 @on_command('抵制高仿', aliases=('高仿', '缝合姬'), only_to_me=False)
