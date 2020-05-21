@@ -28,12 +28,9 @@ async def _(session: CommandSession):
     application = tornado.web.Application([
         (r"/report", MainHandler),
     ])
-    await session.send('start')
     application.listen(9999)
+    await session.send('start')
     # tornado.ioloop.IOLoop.instance().start()
-    while True:
-        print("web server available")
-        time.sleep(300)
 
 
 @on_command('抵制高仿', aliases=('高仿', '缝合姬'), only_to_me=False)
