@@ -43,6 +43,7 @@ class Tail(object):
                 break
             self._file.seek(-read_len, 2)
             last_words = self._file.read(read_len)
+            last_words = str(last_words)
             count = last_words.count('\n')
             if count >= n:
                 last_lines = last_words.split('\n')[-n:]
