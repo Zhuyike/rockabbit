@@ -21,7 +21,7 @@ class Tail(object):
         self.file_length = None
 
     def follow(self, n=10):
-        with open(self.file_name) as f:
+        with open(self.file_name, 'rb') as f:
             self._file = f
             self._file.seek(0, 2)
             self.file_length = self._file.tell()
