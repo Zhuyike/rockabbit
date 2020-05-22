@@ -86,6 +86,8 @@ async def send_feedback(session, title, content, bot, type=1):
 def check_content(session, content, type):
     if type == 1:
         qq = content.split('"uin":')[1].split('}')[0]
+        if '&#' in qq:
+            qq = qq.split('&')[0]
         return int(qq) != session.ctx['user_id']
     else:
         len_1 = len(content.split('android_pkg_name')[0])
@@ -117,7 +119,7 @@ async def _(session: CommandSession):
         title = content.split('text=')[1].split('…,url=')[0]
         await send_feedback(session, title.strip(), content, bot, type=2)
     except IndexError:
-        print('111111111111111111111111111')
+        print('type_hd')
         print(content)
 
 

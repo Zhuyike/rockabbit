@@ -6,7 +6,7 @@ import oss2
 
 conf = configparser.ConfigParser()
 conf.read('server.conf')
-VERSION = "1.05 at.2020-05-21 16:48"
+VERSION = "1.06 at.2020-05-22 13:59"
 AUTHOR = "QQ791949127"
 
 SUPERUSERS = [791949127, ]
