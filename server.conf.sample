@@ -1,8 +1,8 @@
 [mongo]
-mongo_host = 123.57.95.42
-mongo_port = 27017
-mongo_user = keientist_admin
-mongo_pwd = keientist_pwd
+mongo_host =
+mongo_port =
+mongo_user =
+mongo_pwd =
 
 [oss]
 oss_Address = http://oss-cn-beijing.aliyuncs.com
