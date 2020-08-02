@@ -62,7 +62,7 @@ def search(target_list_, main_url):
                 res = requests.get('{}/page/2?term={}+{}+1080'.format(main_url, target[0], target[1]))
             else:
                 break
-        target[2] = max([int(url['topic']) for url in target_url_ if url['name'] == target[1]])
+        target[2] = max([int(url['topic']) for url in target_url_ if url['name'] == target[1]]) + 1
         time.sleep(5)
     return target_list_, target_url_
 
