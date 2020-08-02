@@ -94,5 +94,5 @@ if __name__ == '__main__':
     target_list, target_url = search(target_list, 'https://acg.rip')
     print(target_list)
     print(target_url)
-    download(target_url, 'E://download/down_torrent/')
+    download(target_url, 'E://download/source_utorrent/')
     save(db, target_list)
