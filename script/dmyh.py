@@ -59,7 +59,7 @@ def save(db_, target_list_):
     bangumi = [{'name': target[1], 'label': target[0], 'topic': target[2]} for target in target_list_]
     data = db_.bangumi.find_one({'status': 1})
     data['bangumi'] = bangumi
-    db_.bangumi.replace_one(data)
+    db_.bangumi.save(data)
 
 
 if __name__ == '__main__':
