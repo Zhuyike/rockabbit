@@ -3,9 +3,6 @@ import time
 import requests
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
-
-# search_url = 'https://acg.rip/?term='
-# main_url = 'https://acg.rip'
 topic_list = ['0{}'.format(i) if len(str(i)) == 1 else str(i) for i in range(1, 50)]
 
 
@@ -17,52 +14,30 @@ def fetch(db_):
 
 
 def search(target_list_, main_url):
-    # res = requests.get(main_url)
-    # tr_obj = BeautifulSoup(res.text, 'html.parser').find_all('tr')
-    # target_url_ = list()
-    # for tr in tr_obj[1:]:
-    #     title = tr.find('span', class_='title').find('a').contents[0]
-    #     for target in target_list_:
-    #         topic = str(target[2])
-    #         if len(topic) == 1:
-    #             topic = '0' + topic
-    #         if '1080p' in title:
-    #             title = ''.join(title.split('1080p'))
-    #             if target[0] in title and target[1] in title and\
-    #                     (' {} '.format(topic) in title or '[{}]'.format(topic) in title):
-    #                 uri = tr.find('td', class_='action').find('a')
-    #                 print(uri)
-    #                 url = {'url': main_url + uri.get('href'), 'name': target[1], 'topic': topic}
-    #                 target_url_.append(url)
-    #                 target[2] += 1
     target_url_ = list()
     for target in target_list_:
         topic_cached = list()
+        print('requests.get({}/?term={}+{}+1080)'.format(main_url, target[0], target[1]))
         res = requests.get('{}/?term={}+{}+1080'.format(main_url, target[0], target[1]))
-        while True:
-            tr_obj = BeautifulSoup(res.text, 'html.parser').find_all('tr')
-            for tr in tr_obj[1:]:
-                title = tr.find('span', class_='title').find('a').contents[0]
-                for topic in topic_list:
-                    if int(topic) < target[2]:
-                        continue
-                    if ('[{}]'.format(topic) in title or ' {} '.format(topic) in title)\
-                            and ('简' in title or 'chs' in title or 'CHT' in title):
-                        print(title)
-                        if topic not in topic_cached:
-                            uri = tr.find('td', class_='action').find('a')
-                            print(uri)
-                            url = {'url': main_url + uri.get('href'), 'name': target[1], 'topic': topic}
-                            target_url_.append(url)
-                            topic_cached.append(topic)
-            target_topic = str(target[2])
-            if len(target_topic) == 1:
-                target_topic = '0' + target_topic
-            if target_topic not in topic_cached:
-                res = requests.get('{}/page/2?term={}+{}+1080'.format(main_url, target[0], target[1]))
-            else:
-                break
-        target[2] = max([int(url['topic']) for url in target_url_ if url['name'] == target[1]]) + 1
+        tr_obj = BeautifulSoup(res.text, 'html.parser').find_all('tr')
+        for tr in tr_obj[1:]:
+            title = tr.find('span', class_='title').find('a').contents[0]
+            for topic in topic_list:
+                if int(topic) < target[2]:
+                    continue
+                if ('[{}]'.format(topic) in title or ' {} '.format(topic) in title)\
+                        and ('简' in title or 'chs' in title or 'CHT' in title):
+                    print(title)
+                    if topic not in topic_cached:
+                        uri = tr.find('td', class_='action').find('a')
+                        url = {'url': main_url + uri.get('href'), 'name': target[1], 'topic': topic}
+                        target_url_.append(url)
+                        topic_cached.append(topic)
+        target_topic = str(target[2])
+        if len(target_topic) == 1:
+            target_topic = '0' + target_topic
+        if target_topic in topic_cached:
+            target[2] = max([int(url['topic']) for url in target_url_ if url['name'] == target[1]]) + 1
         time.sleep(5)
     return target_list_, target_url_
 
@@ -90,9 +65,9 @@ def save(db_, target_list_):
 if __name__ == '__main__':
     db = keientist_db_instance()
     target_list = fetch(db)
-    print(target_list)
     target_list, target_url = search(target_list, 'https://acg.rip')
     print(target_list)
     print(target_url)
     download(target_url, 'E://download/source_utorrent/')
+    # download(target_url, 'C://torrent/')
     save(db, target_list)
