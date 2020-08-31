@@ -47,6 +47,7 @@ def download(target_url_, pwd):
         r = requests.get(url_['url'])
         with open("{}{}_{}.torrent".format(pwd, url_['name'], url_['topic']), "wb") as f:
             f.write(r.content)
+        time.sleep(10)
 
 
 def keientist_db_instance():
